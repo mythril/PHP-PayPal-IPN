@@ -94,6 +94,7 @@ class IpnListener
         $ch = curl_init();
 
         if ($this->verify_ssl) {
+            curl_setopt($ch, CURLOPT_SSLVERSION, 6/* 6 is the constant for TLS1.2, the claimed constant CURL_SSLVERSION_TLSv1_2 is often undefined*/);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);
             curl_setopt($ch, CURLOPT_CAINFO, dirname(dirname(__FILE__)) . '/cert/api_cert_chain.crt');
